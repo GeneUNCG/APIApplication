@@ -22,12 +22,11 @@ public class APIApplication {
 
     // API Tags
     private static final String RETRIEVE_TAGS = "tag";
-    private static final String RETRIEVE_RANDOM_MEME = "random/meme";
     private static final String RETRIEVE_RANDOM_QUOTE = "random/quote";
 
     public static void main(String[] args) throws MalformedURLException, IOException {
         // Welcome user
-        System.out.println("Welcome to TronaldDump, where you can search for funny things the 45th president has said.");
+        System.out.println("Welcome to TronaldDump, where you can search for funny quotes the 45th president has said.");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -63,10 +62,6 @@ public class APIApplication {
                     System.out.println();
                     break;
                 case 4:
-                    String randomMeme = getRandomMeme();
-                    System.out.println("Random Meme Link: " + randomMeme);
-                    break;
-                case 5:
                     // Exit
                     System.out.println("Thank you for using tronaldDump! Please come back again.");
                     return;
@@ -76,12 +71,6 @@ public class APIApplication {
             }
 
         }
-    }
-
-    private static String getRandomMeme() throws MalformedURLException, IOException {
-        URL url = new URL(URI + RETRIEVE_RANDOM_MEME);
-        Scanner scanner = new Scanner(url.openStream());
-        return scanner.nextLine();
     }
 
     private static String getRandomQuote() throws MalformedURLException, IOException {
@@ -111,9 +100,8 @@ public class APIApplication {
 
     private static void printMenu() {
         System.out.println("[1] List quote topics.");
-        System.out.println("[2] Search for quote by topic.");
+        System.out.println("[2] Search for quotes by topic.");
         System.out.println("[3] Get random quote.");
-        System.out.println("[4] Get random meme.");
-        System.out.println("[5] Exit application.");
+        System.out.println("[4] Exit application.");
     }
 }
