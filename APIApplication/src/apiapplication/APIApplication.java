@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class APIApplication {
@@ -39,8 +40,16 @@ public class APIApplication {
 
             switch (input) {
                 case 1:
-                    String topics = getQuoteTopics();
-                    System.out.println(topics);
+                    String[] topics = getQuoteTopics();
+                    
+                    System.out.println();
+                    System.out.println("Quote Topics:");
+                    
+                    for (String topic : topics) {
+                        System.out.println(topic);
+                    }
+                    
+                    System.out.println();
                     break;
                 case 2:
                     sInput = scanner.nextLine();
@@ -84,10 +93,22 @@ public class APIApplication {
         return quote;
     }
 
-    private static String getQuoteTopics() throws MalformedURLException, IOException {
+    private static String[] getQuoteTopics() throws MalformedURLException, IOException {
         URL url = new URL(URI + RETRIEVE_TAGS);
         Scanner scanner = new Scanner(url.openStream());
-        return scanner.nextLine();
+        String quoteJSON = scanner.nextLine();
+        
+        JSONObject json = new JSONObject(quoteJSON);
+        json = json.getJSONObject("_embedded");
+        
+        JSONArray arr = json.getJSONArray("tag");
+        
+        String[] quoteTopics = new String[arr.length()];
+        
+        for (int i = 0; i < arr.length(); i++) {
+            quoteTopics[i] = arr.getJSONObject(i).getString("value");
+        }
+        return quoteTopics;
     }
 
     private static String getQuoteByTopic(String topic) {
