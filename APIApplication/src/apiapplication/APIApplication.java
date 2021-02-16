@@ -4,6 +4,9 @@
  * Project #2
  * API Application
  * https://www.tronalddump.io/
+ * 
+ * Using open source JSON parser: https://github.com/stleary/JSON-java
+ * All JSON parsing credit goes to the contributors of JSON-java.
  */
 package apiapplication;
 
@@ -11,6 +14,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+import org.json.JSONObject;
 
 public class APIApplication {
 
@@ -19,7 +23,7 @@ public class APIApplication {
     // API Tags
     private static final String RETRIEVE_TAGS = "tag";
     private static final String RETRIEVE_RANDOM_MEME = "random/meme";
-    private static final String RETRIEVE_RANDOM_QUOTE = "random/meme";
+    private static final String RETRIEVE_RANDOM_QUOTE = "random/quote";
 
     public static void main(String[] args) throws MalformedURLException, IOException {
         // Welcome user
@@ -53,7 +57,10 @@ public class APIApplication {
                     break;
                 case 3:
                     String randomQuote = getRandomQuote();
-                    System.out.println("Random Meme Link: " + randomQuote);
+                    
+                    System.out.println();
+                    System.out.println("Donald Trump: \"" + randomQuote + "\"");
+                    System.out.println();
                     break;
                 case 4:
                     String randomMeme = getRandomMeme();
@@ -80,11 +87,18 @@ public class APIApplication {
     private static String getRandomQuote() throws MalformedURLException, IOException {
         URL url = new URL(URI + RETRIEVE_RANDOM_QUOTE);
         Scanner scanner = new Scanner(url.openStream());
-        return scanner.nextLine();
+        String quoteJSON = scanner.nextLine();
+        
+        JSONObject json = new JSONObject(quoteJSON);
+        String quote = json.getString("value");
+        
+        return quote;
     }
 
-    private static String getQuoteTopics() {
-        return null;
+    private static String getQuoteTopics() throws MalformedURLException, IOException {
+        URL url = new URL(URI + RETRIEVE_TAGS);
+        Scanner scanner = new Scanner(url.openStream());
+        return scanner.nextLine();
     }
 
     private static String getQuoteByTopic(String topic) {
