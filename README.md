@@ -1,6 +1,9 @@
 ***Gene Pressinger
+
 CSC340, Section 02
+
 Assignment #2
+
 API Application***
 
 This program utilizes the [TronaldDump API](https://www.tronalddump.io/). The purpose of this program is to search and retrieve quotes said by Donald Trump, the 45th president of the United States of America.
