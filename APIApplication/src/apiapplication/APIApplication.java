@@ -25,7 +25,7 @@ public class APIApplication {
     // API Tags
     private static final String RETRIEVE_TAG = "tag/";
     private static final String RETRIEVE_RANDOM_QUOTE = "random/quote";
-    
+
     public static void main(String[] args) throws MalformedURLException, IOException {
         // Welcome user
         System.out.println("Welcome to TronaldDump, where you can search for funny quotes the 45th president has said.");
@@ -39,6 +39,7 @@ public class APIApplication {
             input = scanner.nextInt();
 
             switch (input) {
+                // List quote topics:
                 case 1:
                     String[] topics = getQuoteTopics();
 
@@ -51,6 +52,7 @@ public class APIApplication {
 
                     System.out.println();
                     break;
+                // Search quotes by topic:
                 case 2:
                     String quoteLink = getQuoteURLByTopic();
 
@@ -62,6 +64,7 @@ public class APIApplication {
                         System.out.println();
                     }
                     break;
+                // Get random quote:
                 case 3:
                     String randomQuote = getRandomQuote();
 
@@ -69,8 +72,8 @@ public class APIApplication {
                     System.out.println("Donald Trump: \"" + randomQuote + "\"");
                     System.out.println();
                     break;
+                // Exits program:
                 case 4:
-                    // Exit
                     System.out.println("Thank you for using tronaldDump! Please come back again.");
                     return;
                 default:
