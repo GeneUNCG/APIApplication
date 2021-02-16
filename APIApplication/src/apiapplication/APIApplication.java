@@ -19,12 +19,13 @@ import org.json.JSONObject;
 
 public class APIApplication {
 
+    // Main API Link
     private static final String URI = "https://www.tronalddump.io/";
 
     // API Tags
     private static final String RETRIEVE_TAG = "tag/";
     private static final String RETRIEVE_RANDOM_QUOTE = "random/quote";
-
+    
     public static void main(String[] args) throws MalformedURLException, IOException {
         // Welcome user
         System.out.println("Welcome to TronaldDump, where you can search for funny quotes the 45th president has said.");
@@ -51,7 +52,7 @@ public class APIApplication {
                     System.out.println();
                     break;
                 case 2:
-                    String quoteLink = getQuoteByTopic();
+                    String quoteLink = getQuoteURLByTopic();
 
                     if (quoteLink == null) {
                         System.out.println("There are no quotes based on the topic you have entered.");
@@ -80,6 +81,11 @@ public class APIApplication {
         }
     }
 
+    /**
+     * Name: getRandomQuote(): String
+     * Description: Retrieves a random quote from the API, and parses it as text
+     *              into the output console.
+     */
     private static String getRandomQuote() throws MalformedURLException, IOException {
         URL url = new URL(URI + RETRIEVE_RANDOM_QUOTE);
         Scanner scanner = new Scanner(url.openStream());
@@ -91,6 +97,11 @@ public class APIApplication {
         return quote;
     }
 
+    /**
+     * Name:        getQuoteTopics(): String[]
+     * Description: Retrieves the entire list of quote topics. Parses through each
+     *              and are all saved into a String array.
+     */
     private static String[] getQuoteTopics() throws MalformedURLException, IOException {
         URL url = new URL(URI + RETRIEVE_TAG);
         Scanner scanner = new Scanner(url.openStream());
@@ -109,7 +120,14 @@ public class APIApplication {
         return quoteTopics;
     }
 
-    private static String getQuoteByTopic() throws MalformedURLException, IOException {
+    /**
+     * Name:        getQuoteByTopic(): String
+     * Description: Prompts the user to enter a quote topic they wish to
+     *              search for. The user's topic validity is then checked
+     *              using getValidTopic(). Returns a valid URL containing
+     *              quotes based on the topic.
+     */
+    private static String getQuoteURLByTopic() throws MalformedURLException, IOException {
         System.out.println("Enter a topic that you would like to search for.");
         Scanner scanner = new Scanner(System.in);
         String topic = scanner.nextLine();
@@ -125,6 +143,12 @@ public class APIApplication {
         return null;
     }
 
+    /**
+     * Name:        getValidTopic(): String
+     * Description: Filters through topics and matches the user's input
+     *              with an "official topics." Returns a valid topic,
+     *              if one does not exist, null is returned.
+     */
     private static String getValidTopic(String topic) throws IOException {
         String[] topics = getQuoteTopics();
 
@@ -136,6 +160,10 @@ public class APIApplication {
         return null;
     }
 
+    /**
+     * Name:        printMenu(): void
+     * Description: Prints the menu containing user options.
+     */
     private static void printMenu() {
         System.out.println("###############################");
         System.out.println("[1] List quote topics.");
